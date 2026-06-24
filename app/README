@@ -1,0 +1,30 @@
+# Python Port Scanner
+
+A simple CLI port/network scanner built with Scapy and sockets, for learning Python and networking.
+
+## Requirements
+- Linux
+- Python 3
+- Scapy (`pip install scapy --break-system-packages`)
+- Root/sudo (required for arp, ping, syn, and ack scans)
+
+## Usage
+```
+sudo python3 main.py -t <target> -s <scan_type> -p <ports>
+```
+
+- `-t`, `--target` (required): IP address or CIDR range (e.g. `192.168.1.1` or `192.168.1.0/24`)
+- `-s`, `--scan` (optional, default: `connect`): one of `arp`, `ping`, `syn`, `connect`, `ack`
+- `-p`, `--ports` (optional, default: `1-65535`): single port, list, range, or combo (e.g. `80`, `80,443`, `1-1024`)
+
+## Examples
+```
+sudo python3 main.py -t 192.168.1.0/24 -s arp
+sudo python3 main.py -t 192.168.1.5 -s syn -p 1-1024
+sudo python3 main.py -t 192.168.1.5 -s connect -p 22,80,443
+```
+
+## Notes
+- ARP and ping scans accept a CIDR range (host discovery).
+- TCP scans (`connect`, `syn`, `ack`) expect a single target IP.
+- See `IMPROVEMENTS.md` for known limitations.
